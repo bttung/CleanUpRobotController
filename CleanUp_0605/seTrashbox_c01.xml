@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<define-class inherit="Agent.xml" name="Trashbox_c01">
+
+  <!--derived class from Entity.xml ALWAYS NEEDS body tag-->
+
+  <!--(otherwise sigserver.sh crashes)-->
+
+  <body filename="dummy-body.xml"/>
+
+  <x3d>
+    <filename>trashbox_c01.wrl</filename>
+  </x3d>
+
+</define-class>

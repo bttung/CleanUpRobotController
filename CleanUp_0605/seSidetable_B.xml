@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<define-class inherit="Agent.xml" name="Sidetable_B">
+
+  <!--derived class from Entity.xml ALWAYS NEEDS body tag-->
+
+  <simpleShape type="box">  
+    <position x="0" y="21" z="0"/>  
+    <size sx="105" sy="3" sz="60"/>  
+  </simpleShape>  
+  
+  <body filename="dummy-body.xml"/>
+
+  <x3d>
+    <filename>sidetable_B.wrl</filename>
+  </x3d>
+
+</define-class>

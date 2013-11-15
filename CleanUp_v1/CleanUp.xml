@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf8"?>
+<world name="myworld1">
+  <gravity x="0.0" y="-980.7" z="0.0"/>
+
+  <instanciate class="WheelRobot-nii-v1.xml" type="Robot">
+  <!--
+  <instanciate class="Robot-nii-v2.xml" type="Robot">
+  -->
+    <set-attr-value name="name" value="robot_000"/>
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./CleanUpRobot.so"/>
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>
+    <set-attr-value name="y" value="30.0"/>
+    <set-attr-value name="z" value="0.0"/>
+
+    <set-attr-value name="collision" value="true"/>
+
+    <camera id="1"  
+            link="HEAD_LINK"  
+            direction="0 -1 1"  
+            position="0.0 0.0 5.0"/>  
+  </instanciate>
+  
+  <instanciate class="seSidetable_B.xml">  
+    <set-attr-value name="name" value="table_0"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>  
+    <set-attr-value name="y" value="24.0"/>  
+    <set-attr-value name="z" value="60.0"/>  
+
+    <set-attr-value name="scalex" value="1.5"/>  
+    <set-attr-value name="scaley" value="1.5"/>  
+    <set-attr-value name="scalez" value="1.5"/>  
+    
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>  
+
+  <instanciate class="seCannedjuice_200ml_c01.xml">  
+    <set-attr-value name="name" value="can_0"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="0.0"/>  
+    <set-attr-value name="y" value="52.535"/>  
+    <set-attr-value name="z" value="60.0"/>  
+
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>  
+
+  <instanciate class="seCannedjuice_200ml_c02.xml">  
+    <set-attr-value name="name" value="can_1"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="20.0"/>  
+    <set-attr-value name="y" value="52.535"/>  
+    <set-attr-value name="z" value="50.0"/>  
+
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>  
+
+  <instanciate class="sePetbottle_500ml_empty_c01.xml">  
+    <set-attr-value name="name" value="petbottle_0"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-20.0"/>  
+    <set-attr-value name="y" value="59.15"/>  
+    <set-attr-value name="z" value="50.0"/>  
+
+    <set-attr-value name="collision" value="true"/>
+  </instanciate>  
+
+  <instanciate class="seTrashbox_c01.xml">  
+    <set-attr-value name="name" value="trashbox_0"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-150.0"/>  
+    <set-attr-value name="y" value="36.35"/>  
+    <set-attr-value name="z" value="0.0"/>  
+    <set-attr-value name="collision" value="true"/>
+
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./TrashBox.so"/>
+
+    <set-attr-value name="qw" value="0.707"/>  
+    <set-attr-value name="qy" value="0.707"/>  
+  </instanciate>  
+
+  <instanciate class="seTrashbox_c02.xml">  
+    <set-attr-value name="name" value="trashbox_1"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-150.0"/>  
+    <set-attr-value name="y" value="36.35"/>  
+    <set-attr-value name="z" value="-50.0"/>  
+    <set-attr-value name="collision" value="true"/>
+
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./TrashBox.so"/>
+
+    <set-attr-value name="qw" value="0.707"/>  
+    <set-attr-value name="qy" value="0.707"/>  
+  </instanciate>  
+
+  <instanciate class="seTrashbox_c03.xml">  
+    <set-attr-value name="name" value="trashbox_2"/>  
+    <set-attr-value name="dynamics" value="false"/>
+    <set-attr-value name="x" value="-150.0"/>  
+    <set-attr-value name="y" value="36.35"/>  
+    <set-attr-value name="z" value="-100.0"/>  
+    <set-attr-value name="collision" value="true"/>
+
+    <set-attr-value name="language" value="c++"/>
+    <set-attr-value name="implementation"
+                    value="./TrashBox.so"/>
+
+    <set-attr-value name="qw" value="0.707"/>  
+    <set-attr-value name="qy" value="0.707"/>  
+  </instanciate>  
+
+</world>
