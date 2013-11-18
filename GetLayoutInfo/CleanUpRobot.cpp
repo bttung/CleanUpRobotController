@@ -239,10 +239,13 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	if (strcmp(header, SET_ENTITY_POS_MSG) == 0) {
 		// メッセージを解析して、エンティティの位置をセットする
 		printf("111 \n");
-		Entity entity;
+		
 		printf("222 \n");
 		printf("メッセージの未解析部分 :%s \n", ctx);
+		
+		Entity entity;		
 		entity.GetEntityInfo(ctx);
+
 		printf("333\n");
 		// 移動させる
 		PositionManager positionManager;
