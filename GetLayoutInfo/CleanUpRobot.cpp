@@ -27,7 +27,7 @@ public:
 	bool recognizeTrash(Vector3d &pos, std::string &name);
 	void GetRobotPositionInfo();
 	bool GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entities);
-	void UpdatePostion(Entity entity);
+	void UpdatePosition(Entity entity);
 
 	/* @brief  位置を指定しその方向に回転を開始し、回転終了時間を返します
 	* @param  pos 回転したい方向の位置
@@ -243,13 +243,17 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		printf("222 \n");
 		printf("メッセージの未解析部分 :%s \n", ctx);
 		
-		Entity entity;		
-		entity.GetEntityInfo(ctx);
+		Entity entity ;
+		printf("333 \n");
+		printf("ctx: %s \n", ctx);
+					
+		entity.PrintToConsole();
+		//entity.GetEntityInfo(ctx);
 
 		printf("333\n");
 		// 移動させる
 		printf("444 \n");	
-		UpdatePosition(entity);
+		//UpdatePosition(entity);
 		printf("555 \n");
 		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
 		printf("666\n");		
@@ -292,6 +296,18 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	return;
 
 }  
+
+
+void MyController::UpdatePosition(Entity entity) {
+	printf("ccc \n");	
+	SimObj *simObj = getObj(entity.name.c_str());
+	printf("ddd\n");
+	Vector3d pos(entity.x, entity.y, entity.z);
+	printf("eee\n");
+	simObj->setPosition(pos);
+	printf("ggg\n");	
+	return;
+}
 
 void MyController::onCollision(CollisionEvent &evt) 
 {
@@ -348,18 +364,6 @@ bool MyController::GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entit
 	m_numberOfSendedEntityFromCandidateList++;
 
 	return true;
-}
-
-
-bool MyController::UpdatePosition(Entity entity) {
-	printf("ccc \n");	
-	SimObj *simObj = getObj(entity.name);
-	printf("ddd\n");
-	Vector3d pos(entity.x, entity.y, entity.z);
-	printf("eee\n");
-	simObj->setPosition(pos);
-	printf("ggg\n");	
-	return;
 }
 
 

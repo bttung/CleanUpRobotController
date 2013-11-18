@@ -16,9 +16,9 @@ public:
 	double z;
 
 public:
-	Entity() {};
-	~Entity() {};
+	Entity();
+	~Entity();
 public:
-	void ToConsole();
-	void GetEntityInfo(char* msg);
+	void PrintToConsole();
+	//void GetEntityInfo(char* msg);
 };
