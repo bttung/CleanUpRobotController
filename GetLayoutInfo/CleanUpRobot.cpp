@@ -1,16 +1,13 @@
 #include "ControllerEvent.h"  
 #include "Controller.h"
 #include "Logger.h"  
+#include <string>
 #include <algorithm>
 //#include "PositionManager.h"
 //#include "Entity.h"
 #include "Parameter.h"
 
-#define PI 3.1415926535
-
-//角度からラジアンに変換します
-#define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )
-
+using namespace std;
 
 class Entity
 {
@@ -21,12 +18,12 @@ public:
 	double y;
 	double z;
 
-public:
-	Entity();
-	~Entity();
+//public:
+//	Entity();
+//	~Entity();
 public:
 	void PrintToConsole();
-	//void GetEntityInfo(char* msg);
+	void GetEntityInfo(char* msg);
 };
 
 void Entity::PrintToConsole() {
@@ -34,6 +31,16 @@ void Entity::PrintToConsole() {
 	return;
 }
 
+void Entity::GetEntityInfo(char* msg) {
+	printf("aaa\n");
+	char entityName[256];
+	printf("bbb \n");
+	printf("msg: %s \n", msg);
+	sscanf(msg, "%d %s %lf %lf %lf", &id, entityName, &x, &y, &z);
+	name = string(entityName);
+	cout << "name: " << name << endl;
+	return;
+}
 
 
 
@@ -278,12 +285,12 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		printf("ctx: %s \n", ctx);
 					
 		entity.PrintToConsole();
-		//entity.GetEntityInfo(ctx);
+		entity.GetEntityInfo(ctx);
 
 		printf("333\n");
 		// 移動させる
 		printf("444 \n");	
-		//UpdatePosition(entity);
+		UpdatePosition(entity);
 		printf("555 \n");
 		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
 		printf("666\n");		
@@ -330,10 +337,13 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 void MyController::UpdatePosition(Entity entity) {
 	printf("ccc \n");	
+	//SimObj *simObj = getObj(entity.name);
+	printf("objName: %s \n", entity.name.c_str());	
 	SimObj *simObj = getObj(entity.name.c_str());
+	//SimObj *simObj = getObj("can_1");	
 	printf("ddd\n");
 	Vector3d pos(entity.x, entity.y, entity.z);
-	printf("eee\n");
+	printf("eee pos: %lf %lf %lf \n", pos.x(), pos.y(), pos.z());
 	simObj->setPosition(pos);
 	printf("ggg\n");	
 	return;
@@ -395,19 +405,6 @@ bool MyController::GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entit
 
 	return true;
 }
-
-
-void MyController::UpdatePosition(Entity entity) {
-	printf("ccc \n");	
-	SimObj *simObj = getObj(entity.name);
-	printf("ddd\n");
-	Vector3d pos(entity.x, entity.y, entity.z);
-	printf("eee\n");
-	simObj->setPosition(pos);
-	printf("ggg\n");	
-	return;
-}
-
 
 
 double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
