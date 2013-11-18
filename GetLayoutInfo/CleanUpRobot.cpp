@@ -184,7 +184,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	char *delim = (char *)(" ");
 	char *ctx;
 	char *header = strtok_r(all_msg, delim, &ctx);
-	
+	printf("header: %s \n", header);	
+
 	Vector3d pos;
 	char *replyMsg = new char[1024];
 
@@ -232,16 +233,23 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		return;
 	}
 
+	printf("aaa\n");
+	printf("%s _____\n", header);
+	printf("%s \n", SET_ENTITY_POS_MSG);
 	if (strcmp(header, SET_ENTITY_POS_MSG) == 0) {
 		// メッセージを解析して、エンティティの位置をセットする
+		printf("111 \n");
 		Entity entity;
+		printf("222 \n");
 		entity.GetEntityInfo(ctx);
-
+		printf("333\n");
 		// 移動させる
 		PositionManager positionManager;
+		printf("444 \n");	
 		positionManager.UpdatePosition(entity);
-
+		printf("555 \n");
 		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
+		printf("666\n");		
 		return;
 	}
 
