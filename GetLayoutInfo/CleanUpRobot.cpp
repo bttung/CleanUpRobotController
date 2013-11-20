@@ -35,14 +35,14 @@ Entity::Entity(string _type, int _id, string _name) {
 
 
 void Entity::PrintToConsole() {
-	printf("entity: %d	%s	%lf	%lf	%lf	\n", type.c_str(), id, name.c_str(), x, y, z);
+	printf("entity: %s %d %s %lf %lf %lf \n", type.c_str(), id, name.c_str(), x, y, z);
 	return;
 }
 
-void Entity::GetEntityInfo(std::string str) {
+void Entity::GetEntityInfo(char* str) {
 	char entityName[256];
 	char entityType[256];
-	sscanf(str.c_str(), "%s %d %s %lf %lf %lf", entityType, &id, entityName, &x, &y, &z);
+	sscanf(str, "%s %d %s %lf %lf %lf", entityType, &id, entityName, &x, &y, &z);
 	name = string(entityName);
 	type = string(entityType);
 	return;
@@ -70,8 +70,7 @@ public:
 	* @return  ゴミの認識に成功した場合はtrue
 	*/
 	bool recognizeTrash(Vector3d &pos, std::string &name);
-	void GetRobotPositionInfo(vector<Entity> v_entities);
-	void GetEntityPositionInfo();
+	void GetEntityPositionInfo(vector<Entity> &v_entities);
 	bool GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entities);
 	void UpdatePosition(Entity entity);
 	void InitEntityInfo();
@@ -156,11 +155,11 @@ private:
 
 	// 物体、障害物、ロボットの情報の送った数
 	int m_sendedEntityNum;
+	bool m_printed;
 };  
 
 
 void MyController::InitEntityInfo() {
-	
 	m_objects.clear();
 	m_obstacles.clear();
 	m_robots.clear();
@@ -190,10 +189,6 @@ void MyController::InitEntityInfo() {
 		m_entities.push_back(entity);
 	}
 
-	for (int i = 0; i < m_entities.size(); i++) {
-		printf("entity: %s %d %s \n", m_entities[i].type.c_str(), m_entities[i].id, m_entities[i].name.c_str());
-	}
-
 	return;
 }
 
@@ -214,15 +209,6 @@ void MyController::onInit(InitEvent &evt)
 	m_my->setWheel(m_radius, m_distance);
 	m_state = 0;
 
-	// エンティティ情報を追加する
-	InitEntityInfo();
-	GetEntityPositionInfo(m_entities);
-	
-	for (int i = 0; i < m_entities.size(); i++) {
-		printf("entities: ", m_entities[i].type.c_str(), m_entities[i].id, m_entities[i].name.c_str(), m_entities[i].x, m_entities[i].y, m_entities[i].z);
-	}
-
-
 	m_sendedEntityNum = 0;
 
 	srand((unsigned)time( NULL ));
@@ -232,6 +218,20 @@ void MyController::onInit(InitEvent &evt)
 
 	// 関節の回転速度
 	m_jvel = 0.6;
+
+	if (!m_printed) {
+	GetEntityPositionInfo(m_entities);
+	printf("size: %d \n", m_entities.size());
+	
+	for (int i = 0; i < m_entities.size(); i++) {
+		printf("entities: %s %d %s %lf %lf %lf \n", m_entities[i].type.c_str(), m_entities[i].id, m_entities[i].name.c_str(), m_entities[i].x, m_entities[i].y, m_entities[i].z);
+
+		m_printed = true;
+	}
+}
+
+
+	m_printed = false;
 }  
   
 double MyController::onAction(ActionEvent &evt)
@@ -240,15 +240,6 @@ double MyController::onAction(ActionEvent &evt)
 		// 初期状態
 		case 0: {
 			if(m_srv == NULL){
-
-	Vector3d pos;
-	// エンティティの生成
-	SimObj *obj = getObj("robot_000");
-
-	// エンティティの位置取得
-	obj->getPosition(pos);
-
-	printf("エンティティの座標 :%lf %lf %lf \n", pos.x(), pos.y(), pos.z());
 
 
 
@@ -458,12 +449,16 @@ bool MyController::recognizeTrash(Vector3d &pos, std::string &name)
 
 void MyController::GetEntityPositionInfo(vector<Entity> &v_entities) {
 	v_entities.clear();
+	// エンティティ情報を追加する
+	InitEntityInfo();
+
 	for (int i = 0; i < v_entities.size(); i++) {
 		// エンティティの生成
 		SimObj *obj = getObj(v_entities[i].name.c_str());
 		// エンティティの位置取得
+		Vector3d pos;
 		obj->getPosition(pos);
-		v_entities.SetPosition(pos.x(), pos.y(), pos.z());
+		v_entities[i].SetPosition(pos.x(), pos.y(), pos.z());
 	}
 	return;
 }
