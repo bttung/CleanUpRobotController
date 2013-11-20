@@ -10,4 +10,7 @@ class PositionManager: public Controller
 {
 public:
 	void UpdatePosition(Entity entity);
+
+};
+
 };

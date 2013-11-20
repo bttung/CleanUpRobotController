@@ -3,8 +3,6 @@
 #include "Logger.h"  
 #include <string>
 #include <algorithm>
-//#include "PositionManager.h"
-//#include "Entity.h"
 #include "Parameter.h"
 
 using namespace std;
@@ -12,38 +10,48 @@ using namespace std;
 class Entity
 {
 public:
+	string type;
 	int id;
 	string name;
 	double x;
 	double y;
 	double z;
 
-//public:
-//	Entity();
-//	~Entity();
 public:
-	void PrintToConsole();
+	Entity() {};
+	Entity(string type, int id, string name);
+	~Entity() {};
+public:
+	void ToConsole();
 	void GetEntityInfo(char* msg);
+	void SetPosition(double _x, double _y, double _z);
 };
 
-void Entity::PrintToConsole() {
-	printf("entity: %d	%s	%lf	%lf	%lf	\n", id, name.c_str(), x, y, z);
+Entity::Entity(string _type, int _id, string _name) {
+	type = _type;
+	id	 = _id;
+	name = _name;
+}
+
+
+void Entity::ToConsole() {
+	printf("entity: %d	%s	%lf	%lf	%lf	\n", type.c_str(), id, name.c_str(), x, y, z);
 	return;
 }
 
-void Entity::GetEntityInfo(char* msg) {
-	printf("aaa\n");
+void Entity::GetEntityInfo(std::string str) {
 	char entityName[256];
-	printf("bbb \n");
-	printf("msg: %s \n", msg);
-	sscanf(msg, "%d %s %lf %lf %lf", &id, entityName, &x, &y, &z);
+	char entityType[256];
+	sscanf(str.c_str(), "%s %d %s %lf %lf %lf", entityType, &id, entityName, &x, &y, &z);
 	name = string(entityName);
-	cout << "name: " << name << endl;
+	type = string(entityType);
 	return;
 }
 
-
-
+void Entity::SetPosition(double _x, double _y, double _z) {
+	x = _x; y = _y; z = _z;
+	return;
+}
 
 
 
@@ -62,9 +70,11 @@ public:
 	* @return  ゴミの認識に成功した場合はtrue
 	*/
 	bool recognizeTrash(Vector3d &pos, std::string &name);
-	void GetRobotPositionInfo();
+	void GetRobotPositionInfo(vector<Entity> v_entities);
+	void GetEntityPositionInfo();
 	bool GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entities);
 	void UpdatePosition(Entity entity);
+	void InitEntityInfo();
 
 	/* @brief  位置を指定しその方向に回転を開始し、回転終了時間を返します
 	* @param  pos 回転したい方向の位置
@@ -119,13 +129,15 @@ private:
 	double m_distance;
 
 	// ゴミ候補オブジェクト
-	std::vector<std::string> m_trashes;
+	std::vector<std::string> m_objects;
 
 	// 障害物候補の格納
 	std::vector<std::string> m_obstacles;
 
 	// ロボットの候補
 	std::vector<std::string> m_robots;
+
+	vector<Entity> m_entities;
 
 	// エンティティの名前
 	std::string m_entiyName;
@@ -143,8 +155,47 @@ private:
 	bool m_executed;
 
 	// 物体、障害物、ロボットの情報の送った数
-	int m_numberOfSendedEntityFromCandidateList;
+	int m_sendedEntityNum;
 };  
+
+
+void MyController::InitEntityInfo() {
+	
+	m_objects.clear();
+	m_obstacles.clear();
+	m_robots.clear();
+	m_entities.clear();
+
+	m_objects.push_back("can_0");
+	m_objects.push_back("can_1");
+	m_objects.push_back("petbottle_0");   
+	m_obstacles.push_back("table_0");
+	m_obstacles.push_back("trashbox_0");
+	m_obstacles.push_back("trashbox_1");
+	m_obstacles.push_back("trashbox_2");
+	m_robots.push_back("robot_000");
+
+	for (int i = 0; i < m_objects.size(); i++) {
+		Entity entity(OBJECT, i, m_objects[i]);
+		m_entities.push_back(entity);
+	}
+
+	for (int i = 0; i < m_obstacles.size(); i++) {
+		Entity entity(OBSTACLE, i, m_obstacles[i]);
+		m_entities.push_back(entity);
+	}
+
+	for (int i = 0; i < m_robots.size(); i++) {
+		Entity entity(ROBOT, i, m_robots[i]);
+		m_entities.push_back(entity);
+	}
+
+	for (int i = 0; i < m_entities.size(); i++) {
+		printf("entity: %s %d %s \n", m_entities[i].type.c_str(), m_entities[i].id, m_entities[i].name.c_str());
+	}
+
+	return;
+}
 
 void MyController::onInit(InitEvent &evt) 
 {  
@@ -163,19 +214,16 @@ void MyController::onInit(InitEvent &evt)
 	m_my->setWheel(m_radius, m_distance);
 	m_state = 0;
 
-	// ここではゴミの名前が分かっているとします
-	m_trashes.push_back("can_0");
-	m_trashes.push_back("can_1"); 
-	m_trashes.push_back("petbottle_0");
-    
-	m_obstacles.push_back("table_0");
-	m_obstacles.push_back("trashbox_0");
-	m_obstacles.push_back("trashbox_1");
-	m_obstacles.push_back("trashbox_2");
+	// エンティティ情報を追加する
+	InitEntityInfo();
+	GetEntityPositionInfo(m_entities);
+	
+	for (int i = 0; i < m_entities.size(); i++) {
+		printf("entities: ", m_entities[i].type.c_str(), m_entities[i].id, m_entities[i].name.c_str(), m_entities[i].x, m_entities[i].y, m_entities[i].z);
+	}
 
-	m_robots.push_back("robot_000");
 
-	m_numberOfSendedEntityFromCandidateList = 0;
+	m_sendedEntityNum = 0;
 
 	srand((unsigned)time( NULL ));
 
@@ -238,10 +286,28 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	Vector3d pos;
 	char *replyMsg = new char[1024];
 
+
+	if (strcmp(header, ASK_ENTITY_POS_MSG) == 0) {
+		printf("Received %s \n", ASK_ENTITY_POS_MSG);
+		if (GetEntityInfo(pos, m_objects)) {
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBJECT_POS_MSG, m_sendedEntityNum - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
+			printf("%s \n", replyMsg);
+			m_srv->sendMsgToSrv(replyMsg);
+		} else {
+			m_srv->sendMsgToSrv(FIN_ASK_OBJECT_POS_MSG);
+			printf("%s \n", FIN_ASK_OBJECT_POS_MSG);
+		}
+		return;
+	}
+
+
+
+
+
 	if (strcmp(header, ASK_OBJECT_POS_MSG) == 0) {
 		printf("Received %s \n", ASK_OBJECT_POS_MSG);
-		if (GetEntityInfo(pos, m_trashes)) {
-			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBJECT_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
+		if (GetEntityInfo(pos, m_objects)) {
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBJECT_POS_MSG, m_sendedEntityNum - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		} else {
@@ -254,7 +320,7 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	if (strcmp(header, ASK_OBSTACLE_POS_MSG) == 0) {
 		printf("Received %s \n", ASK_OBSTACLE_POS_MSG);
 		if (GetEntityInfo(pos, m_obstacles)) {
-			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBSTACLE_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBSTACLE_POS_MSG, m_sendedEntityNum - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		} else {
@@ -267,7 +333,7 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	if (strcmp(header, ASK_ROBOT_POS_MSG) == 0) {
  		printf("Received %s \n", ASK_ROBOT_POS_MSG);
 		if (GetEntityInfo(pos, m_robots)) {
-			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_ROBOT_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), 0.0, 0.0, 0.0);
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_ROBOT_POS_MSG, m_sendedEntityNum - 1, m_entiyName.c_str(), 0.0, 0.0, 0.0);
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		}
@@ -373,15 +439,15 @@ bool MyController::recognizeTrash(Vector3d &pos, std::string &name)
 	/////////////////////////////////////////////
 
 	// 候補のゴミが無い場合
-	if(m_trashes.empty()){
+	if(m_objects.empty()){
 	return false;
 	}
 
 	// ここでは乱数を使ってゴミを決定します
-	int trashNum = rand() % m_trashes.size();
+	int trashNum = rand() % m_objects.size();
 
 	// ゴミの名前と位置を取得します
-	name = m_trashes[trashNum];
+	name = m_objects[trashNum];
 	SimObj *trash = getObj(name.c_str());
 
 	// ゴミの位置取得
@@ -390,19 +456,32 @@ bool MyController::recognizeTrash(Vector3d &pos, std::string &name)
 }
 
 
+void MyController::GetEntityPositionInfo(vector<Entity> &v_entities) {
+	v_entities.clear();
+	for (int i = 0; i < v_entities.size(); i++) {
+		// エンティティの生成
+		SimObj *obj = getObj(v_entities[i].name.c_str());
+		// エンティティの位置取得
+		obj->getPosition(pos);
+		v_entities.SetPosition(pos.x(), pos.y(), pos.z());
+	}
+	return;
+}
+
+
 
 bool MyController::GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entities)
 {
 	// 候補のゴミが無い場合
-	if (m_numberOfSendedEntityFromCandidateList == v_entities.size()){
-		m_numberOfSendedEntityFromCandidateList = 0;
+	if (m_sendedEntityNum == v_entities.size()){
+		m_sendedEntityNum = 0;
 	return false;
 	}
 
 	printf("候補のサイズ :%d \n", v_entities.size());
 
 	// エンティティの名前を取得します
-	m_entiyName = v_entities[m_numberOfSendedEntityFromCandidateList];
+	m_entiyName = v_entities[m_sendedEntityNum];
 
 	// エンティティの生成
 	SimObj *obj = getObj(m_entiyName.c_str());
@@ -413,7 +492,7 @@ bool MyController::GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entit
 	printf("エンティティの座標 :%lf %lf %lf \n", pos.x(), pos.y(), pos.z());
 
 	// 候補リストから送ったエンティティの数	
-	m_numberOfSendedEntityFromCandidateList++;
+	m_sendedEntityNum++;
 
 	return true;
 }
