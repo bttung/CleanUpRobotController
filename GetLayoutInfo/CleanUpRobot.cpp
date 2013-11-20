@@ -22,7 +22,7 @@ public:
 	Entity(string type, int id, string name);
 	~Entity() {};
 public:
-	void ToConsole();
+	void PrintToConsole();
 	void GetEntityInfo(char* msg);
 	void SetPosition(double _x, double _y, double _z);
 };
@@ -34,7 +34,7 @@ Entity::Entity(string _type, int _id, string _name) {
 }
 
 
-void Entity::ToConsole() {
+void Entity::PrintToConsole() {
 	printf("entity: %d	%s	%lf	%lf	%lf	\n", type.c_str(), id, name.c_str(), x, y, z);
 	return;
 }
