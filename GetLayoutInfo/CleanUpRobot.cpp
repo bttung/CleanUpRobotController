@@ -192,6 +192,18 @@ double MyController::onAction(ActionEvent &evt)
 		// 初期状態
 		case 0: {
 			if(m_srv == NULL){
+
+	Vector3d pos;
+	// エンティティの生成
+	SimObj *obj = getObj("robot_000");
+
+	// エンティティの位置取得
+	obj->getPosition(pos);
+
+	printf("エンティティの座標 :%lf %lf %lf \n", pos.x(), pos.y(), pos.z());
+
+
+
 				// ゴミ認識サービスが利用可能か調べる
 				if(checkService(LAYOUT_MANAGE_SERVICE_NAME)){
 					// ゴミ認識サービスに接続
