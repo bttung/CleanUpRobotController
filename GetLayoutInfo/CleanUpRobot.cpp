@@ -14,6 +14,7 @@ public:
 };
 
 string Messenge::GetString(string header, string content) {
+	printf("header: %s content: %s \n", header.c_str(), content.c_str());	
 	string msg = header + " " + content;
 	printf("msg: %s \n", msg.c_str());
 	return msg;
@@ -48,7 +49,8 @@ Entity::Entity(string _type, int _id, string _name) {
 
 string Entity::ToString() {
 	char content[256];
-	printf("%s %d %s %lf %lf %lf \n", type.c_str(), id, name.c_str(), x, y, z);
+	sprintf(content, "%s %d %s %lf %lf %lf \n", type.c_str(), id, name.c_str(), x, y, z);
+	printf("entity ToString: %s \n", content);	
 	return string(content);
 }
 
@@ -315,19 +317,17 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	Vector3d pos;
 	char *replyMsg = new char[1024];
 
-
 	if (strcmp(header, ASK_ENTITY_POS_MSG) == 0) {
 		printf("Received %s \n", ASK_ENTITY_POS_MSG);
 		
 		if (m_sendedEntityNum < m_entities.size()) {
-			m_srv->sendMsgToSrv(m_messenge.GetString(ANS_OBJECT_POS_MSG, m_entities[m_sendedEntityNum].ToString()));
+			m_srv->sendMsgToSrv(m_messenge.GetString(ANS_ENTITY_POS_MSG, m_entities[m_sendedEntityNum].ToString()));
 			m_sendedEntityNum++;
 		} else {
 			m_srv->sendMsgToSrv(FIN_ASK_POS_MSG);
 		}
 		return;
 	}
-
 
 	if (strcmp(header, START_SET_POS_MSG) == 0) {			
 		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);	
