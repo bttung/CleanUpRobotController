@@ -64,4 +64,4 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 
 	return now + time;
   }
-  }
+}
