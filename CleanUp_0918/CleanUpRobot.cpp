@@ -256,7 +256,7 @@ void MyController::onInit(InitEvent &evt)
 
 double MyController::onAction(ActionEvent &evt)
 {
-	if(!checkService("RecogTrash")){
+/*	if(!checkService("RecogTrash")){
 		m_srv == NULL;
 		m_state = 0;
 		return UPDATE_INTERVAL;
@@ -269,7 +269,7 @@ double MyController::onAction(ActionEvent &evt)
 			m_srv = connectToService("RecogTrash");
 			return UPDATE_INTERVAL;
 		}
-	}
+	}*/
 
 
 	//if(evt.time() < m_time) printf("state: %d \n", m_state);
@@ -532,8 +532,9 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 
 
-
-
+void MyController::onCollision(CollisionEvent &evt) 
+{
+}
 
 
 double MyController::calcHeadingAngle()
