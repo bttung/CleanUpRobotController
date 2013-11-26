@@ -142,6 +142,7 @@ private:
 	// 動作を実行したかどうかのフラグ、動作を複数回実行を防ぐ
 	bool m_executed;
 	double m_range;
+	double m_lookObjFlg;
 };  
 
 
@@ -239,10 +240,11 @@ void MyController::onInit(InitEvent &evt)
 
 
 	// 車輪の回転速度
-	m_vel = 0.3;	//1.0;
-	m_rotateVel = 0.3;	//1.0;
+	m_vel = 1.0;	//1.0;
+	m_rotateVel = 0.6;	//1.0;
 	// 関節の回転速度
 	m_jvel = 0.6;
+	m_lookObjFlg = 0.0;
 
 	// grasp初期化
 	m_grasp = false;
@@ -330,7 +332,15 @@ double MyController::onAction(ActionEvent &evt)
 				m_my->setWheelVelocity(0.0, 0.0);				
 				printf("移動先 x: %lf, z: %lf \n", nextPos.x(), nextPos.z());				
 				m_time = goToObj(nextPos, m_vel*4, m_range, evt.time());
-				m_state = 810;
+				
+				if (m_lookObjFlg == 1.0) {
+					printf("looking to Obj \n");				
+					m_state = 810;
+				} else {
+					printf("go to next node \n");				
+					m_state = 815;
+				}
+
 				m_executed = false;
 			}
 			break;
@@ -433,12 +443,15 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		if(strcmp(header, "RandomRoute") == 0) {
 			x = atof(strtok_r(NULL, delim, &ctx));			
 			z = atof(strtok_r(NULL, delim, &ctx));	
-			m_range = atof(strtok_r(NULL, delim, &ctx));			
+			m_range = atof(strtok_r(NULL, delim, &ctx));	
 			nextPos.set(x, y, z);
 
 			double lookingX = atof(strtok_r(NULL, delim, &ctx));
 			double lookingZ = atof(strtok_r(NULL, delim, &ctx));
 			m_lookingPos.set(lookingX, 0, lookingZ);
+
+			m_lookObjFlg = atof(strtok_r(NULL, delim, &ctx));
+			printf("m_lookObjFlg: %lf \n", m_lookObjFlg);
 
 			m_state = 805;
 			m_executed = false;
