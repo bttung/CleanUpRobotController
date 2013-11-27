@@ -617,8 +617,10 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 		// 回転すべき円周距離
 		double distance = m_distance*PI*fabs(targetAngle)/(2*PI);
 		printf("distance: %lf \n", distance);	  
+
 		// 車輪の半径から移動速度を得る
 		double vel = m_radius*velocity;
+		printf("radius: %lf, velocity: %lf, vel: %lf \n", m_radius, velocity, vel);		
 
 		// 回転時間(u秒)
 		double time = distance / vel;
@@ -658,10 +660,11 @@ double MyController::goToObj(Vector3d nextPos, double velocity, double range, do
 
 	// 距離計算
 	double distance = pos.length() - range;
-	printf("distance: %lf %lf\n", distance, range);
+	printf("gotoObj distance: %lf, range: %lf\n", distance, range);
 
 	// 車輪の半径から移動速度を得る
 	double vel = m_radius*velocity;
+	printf("radius: %lf, velocity: %lf, vel: %lf \n", m_radius, velocity, vel);
 
 	// 移動開始
 	m_my->setWheelVelocity(velocity, velocity);
@@ -669,7 +672,7 @@ double MyController::goToObj(Vector3d nextPos, double velocity, double range, do
 
 	// 到着時間取得
 	double time = distance / vel;
-	printf("time: %lf \n", time);
+	printf("goToObj time: %lf \n", time);
 
 	return now + time;
 }
