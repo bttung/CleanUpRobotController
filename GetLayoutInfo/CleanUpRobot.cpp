@@ -2,6 +2,7 @@
 #include "Controller.h"
 #include "Logger.h"  
 #include <algorithm>
+#include "Parameter.h"
 
 #define PI 3.1415926535
 
@@ -153,15 +154,15 @@ double MyController::onAction(ActionEvent &evt)
 		case 0: {
 			if(m_srv == NULL){
 				// ゴミ認識サービスが利用可能か調べる
-				if(checkService("RecogTrash")){
+				if(checkService(LAYOUT_MANAGE_SERVICE_NAME)){
 					// ゴミ認識サービスに接続
-					m_srv = connectToService("RecogTrash");
+					m_srv = connectToService(LAYOUT_MANAGE_SERVICE_NAME);
 				} else {
 					printf("cannot connect to service \n");
 				}
 			} else if(m_srv != NULL && m_executed == false) {  
 				m_time = evt.time();
-				m_srv->sendMsgToSrv("Start");
+				m_srv->sendMsgToSrv(START_MSG);
 				m_state = 5;
 			}
 			break;
@@ -185,37 +186,37 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	Vector3d pos;
 	char *replyMsg = new char[1024];
 
-	if (strcmp(header, "ObjectPosition") == 0) {
-		printf("Received ObjectPosition \n");
+	if (strcmp(header, ASK_OBJECT_POS_MSG) == 0) {
+		printf("Received %s \n", ASK_OBJECT_POS_MSG);
 		if (GetEntityInfo(pos, m_trashes)) {
-			sprintf(replyMsg, "ObjectPosition %d %s %6.1lf %6.1lf %6.1lf", m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBJECT_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		} else {
-			m_srv->sendMsgToSrv("FinishObjectPosition");
-			printf("FinishObjectPosition \n");
+			m_srv->sendMsgToSrv(FIN_OBJECT_POS_MSG);
+			printf("%s \n", FIN_OBJECT_POS_MSG);
 		}
 		return;
 	}
 
-	if (strcmp(header, "ObstaclePosition") == 0) {
-		printf("Received ObstaclePosition \n");
+	if (strcmp(header, ASK_OBSTACLE_POS_MSG) == 0) {
+		printf("Received %s \n", ASK_OBSTACLE_POS_MSG);
 		if (GetEntityInfo(pos, m_obstacles)) {
-			sprintf(replyMsg, "ObstaclePosition %d %s %6.1lf %6.1lf %6.1lf", m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_OBSTACLE_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), pos.x(), pos.y(), pos.z());
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		} else {
-			m_srv->sendMsgToSrv("FinishObstaclePosition");
-			printf("FinishObstaclePosition \n");
+			m_srv->sendMsgToSrv(FIN_OBSTACLE_POS_MSG);
+			printf("%s \n", FIN_OBSTACLE_POS_MSG);
 		}
 		return;
 	}
 
-	if (strcmp(header, "RobotPosition") == 0) {
+	if (strcmp(header, ASK_ROBOT_POS_MSG) == 0) {
 		if (!m_executed) {
-	 		printf("Received RobotPosition \n");
+	 		printf("Received %s \n", ASK_ROBOT_POS_MSG);
 			if (GetEntityInfo(pos, m_robots)) {
-				sprintf(replyMsg, "RobotPosition %d %s %6.1lf %6.1lf %6.1lf", m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), 0.0, 0.0, 0.0);
+				sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_ROBOT_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), 0.0, 0.0, 0.0);
 				printf("%s \n", replyMsg);
 				m_srv->sendMsgToSrv(replyMsg);
 				m_executed = true;		
@@ -223,6 +224,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		}
 		return;
 	}
+
+
 
 	return;
 
