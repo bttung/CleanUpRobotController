@@ -9,8 +9,9 @@
 
 using namespace std;
 
-
-
+#define REPLY_MESS_FILENAME "reply_msg.txt"
+#define RECV_MESS_FILENAME	"recv_msg.txt"
+#define LOG_FILENAME		"log.txt"
 
 #define PI 3.1415926535
 #define ARM_RADIUS 18
@@ -35,6 +36,18 @@ using namespace std;
 //角度からラジアンに変換します
 #define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )   
 
+
+class Utility {
+public:
+	void AppendString2File(char msg[256], char filename[256]);
+};
+
+void Utility::AppendString2File(char msg[256], char filename[256]) {
+	FILE *fw = fopen(filename, "a");
+	fprintf(fw, "%s\n", msg);
+	fclose(fw);
+	return;
+}
 
 
 class MyController : public Controller {  
@@ -146,6 +159,8 @@ private:
 	bool m_executed;
 	double m_range;
 	double m_lookObjFlg;
+
+	Utility	m_util;
 };  
 
 
@@ -188,6 +203,7 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 	} else {
 		link = "WAIST_LINK0";
 	}
+
 	//const dReal *lpos = m_my->getParts(link.c_str())->getPosition();
 	Vector3d lpos;
 	m_my->getParts(link.c_str())->getPosition(lpos);
@@ -213,6 +229,8 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 						header.c_str(), x, z, theta, campos.x(), campos.y(), campos.z(), cdir.x(), cdir.y(), cdir.z());
 	printf("%s \n", replyMsg);
 	m_srv->sendMsgToSrv(replyMsg);
+
+	m_util.AppendString2File(replyMsg, REPLY_MESS_FILENAME);
 
 	return replyMsg;
 }
@@ -409,6 +427,13 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 	char *all_msg = (char*)evt.getMsg();		
 	printf("all_msg: %s \n", all_msg);
+
+	// debug
+	char *all_msg_bak;
+	sprintf(all_msg_bak, "%s", all_msg);
+	printf("___all_msg_bak: %s", all_msg_bak);
+
+
 	char *delim = (char *)(" ");
 	char *ctx;
 	char *header = strtok_r(all_msg, delim, &ctx);
@@ -431,6 +456,9 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		double x = 0, y = 0, z = 0; // range = 0;
 
 		if(strcmp(header, "RandomRouteStart") == 0) {
+			// debug
+			m_util.AppendString2File(all_msg_bak, RECV_MESS_FILENAME);
+
 			m_state = 800;
 			m_executed = false;
 			return;
