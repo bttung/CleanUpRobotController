@@ -39,10 +39,10 @@ using namespace std;
 
 class Utility {
 public:
-	void AppendString2File(string msg, char filename[256]);
+	void AppendString2File(char msg[256], char filename[256]);
 };
 
-void Utility::AppendString2File(string msg, char filename[256]) {
+void Utility::AppendString2File(char msg[256], char filename[256]) {
 	FILE *fw = fopen(filename, "a");
 	fprintf(fw, "%s\n", msg);
 	fclose(fw);
@@ -230,7 +230,7 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 	printf("%s \n", replyMsg);
 	m_srv->sendMsgToSrv(replyMsg);
 
-	m_util.AppendString2File(string(replyMsg), REPLY_MESS_FILENAME);
+	m_util.AppendString2File(replyMsg, REPLY_MESS_FILENAME);
 
 	return replyMsg;
 }
@@ -346,7 +346,7 @@ double MyController::onAction(ActionEvent &evt)
 				m_executed = false;
 			}
 			break;
-	  	}
+	  }
 
 		case 807: {
 			if(evt.time() > m_time && m_executed == false) {
@@ -457,8 +457,7 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 		if(strcmp(header, "RandomRouteStart") == 0) {
 			// debug
-			printf("append msg 2 file\n");
-			m_util.AppendString2File(string(all_msg_bak), RECV_MESS_FILENAME);
+			m_util.AppendString2File(all_msg_bak, RECV_MESS_FILENAME);
 
 			m_state = 800;
 			m_executed = false;
@@ -697,13 +696,6 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 	// y方向は考えない
 	tmpp.y(0);
 
-	// 近すぎるなら，回転なし
-	double dis = tmpp.x() * tmpp.x() + tmpp.z() * tmpp.z();
-	if (dis < 1.0) {
-		printf("近すぎる回転手なくても良い\n");		
-		return 0.0;
-	}	
-
 	// 自分の回転を得る
 	Rotation myRot;
 	m_my->getRotation(myRot);
@@ -718,10 +710,9 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 	  
 	double theta = 2*acos(fabs(qw));
 
-	if (qw*qy < 0) {
+	if(qw*qy < 0)
 		theta = -1*theta;
-	}
-
+	
 	printf("ロボットが向いている角度 current theta: %lf(deg) \n",  theta * 180 / PI);
 	
 	// z方向からの角度
@@ -729,28 +720,14 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 	double targetAngle = acos(tmp);
 
 	// 方向
-	if(tmpp.x() > 0) {
-		targetAngle = -1*targetAngle;
-	}
+	if(tmpp.x() > 0) targetAngle = -1*targetAngle;
 	targetAngle += theta;
+	printf("targetAngle: %lf(deg) currentAngle: %lf(deg) \n", targetAngle*180.0/PI, theta * 180.0 / PI);
 
-	//printf("000 targetAngle: %lf(deg) currentAngle: %lf(deg) \n", targetAngle*180.0/PI, theta * 180.0 / PI);
-
-	if (targetAngle > PI) {
-		targetAngle = targetAngle - 2 * PI;
-	}
-
-	//printf("111 targetAngle: %lf(deg) currentAngle: %lf(deg) \n", targetAngle*180.0/PI, theta * 180.0 / PI);
-	
-	if (targetAngle < -PI) {
-		targetAngle = targetAngle + 2 * PI;
-	}
-
-	//printf("222 targetAngle: %lf(deg) currentAngle: %lf(deg) \n", targetAngle*180.0/PI, theta * 180.0 / PI);
-
-	if (targetAngle == 0.0) {
+	if(targetAngle == 0.0){
 		return 0.0;
-	} else {
+	}
+	else {
 		// 回転すべき円周距離
 		double distance = m_distance*PI*fabs(targetAngle)/(2*PI);
 		printf("distance: %lf \n", distance);	  
@@ -764,9 +741,10 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 		printf("rotateTime: %lf = dis: %lf / vel: %lf\n", time, distance, vel);
 		
 		// 車輪回転開始
-		if (targetAngle > 0.0) {
+		if(targetAngle > 0.0){
 			 m_my->setWheelVelocity(velocity, -velocity);
-		} else {
+		}
+		else{
 			m_my->setWheelVelocity(-velocity, velocity);
 		}
 
