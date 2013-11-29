@@ -233,7 +233,7 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 	printf("%s \n", replyMsg);
 	m_srv->sendMsgToSrv(replyMsg);
 
-	m_util.AppendString2File(string(replyMsg), REPLY_MESS_FILENAME);
+	//m_util.AppendString2File(string(replyMsg), REPLY_MESS_FILENAME);
 
 	return replyMsg;
 }
@@ -432,14 +432,14 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	printf("all_msg: %s \n", all_msg);
 
 	// debug
-	char *all_msg_bak;
-	sprintf(all_msg_bak, "%s", all_msg);
-	printf("___all_msg_bak: %s", all_msg_bak);
-
+	//char *all_msg_bak;
+	//sprintf(all_msg_bak, "%s", all_msg);
+	//printf("___all_msg_bak: %s\n", all_msg_bak);
 
 	char *delim = (char *)(" ");
 	char *ctx;
 	char *header = strtok_r(all_msg, delim, &ctx);
+	printf("header: %s\n", header);
 
 	if (strcmp(header, "RESET") == 0) {
 		printf("Received RESET \n");
@@ -460,8 +460,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 		if(strcmp(header, "RandomRouteStart") == 0) {
 			// debug
-			printf("append msg 2 file\n");
-			m_util.AppendString2File(string(all_msg_bak), RECV_MESS_FILENAME);
+			//printf("append msg 2 file\n");
+			//m_util.AppendString2File(string(all_msg_bak), RECV_MESS_FILENAME);
 
 			m_state = 800;
 			m_executed = false;
