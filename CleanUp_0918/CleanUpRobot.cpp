@@ -39,12 +39,15 @@ using namespace std;
 
 class Utility {
 public:
-	void AppendString2File(string msg, char filename[256]);
+	void AppendString2File(string msg, string _filename);
 };
 
-void Utility::AppendString2File(string msg, char filename[256]) {
+void Utility::AppendString2File(string msg, string _filename) {
+	char filename[256];
+	sprintf(filename, "%s", _filename.c_str());
+	
 	FILE *fw = fopen(filename, "a");
-	fprintf(fw, "%s\n", msg);
+	fprintf(fw, "%s\n", msg.c_str());
 	fclose(fw);
 	return;
 }
