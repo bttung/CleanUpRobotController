@@ -235,7 +235,7 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 
 	m_srv->sendMsgToSrv(replyMsg);
 	printf("make sleep\n");
-	sleep(1);	//1秒
+	usleep(50000);	//0.05second
 
 	m_util.AppendString2File(string(replyMsg), REPLY_MESS_FILENAME);
 
@@ -359,7 +359,7 @@ double MyController::onAction(ActionEvent &evt)
 			if(evt.time() > m_time && m_executed == false) {
 				m_my->setWheelVelocity(0.0, 0.0);
 				printf("make sleep\n");
-				sleep(1);	//1秒			
+				usleep(50000);	//0.05second			
 	
 				printf("移動先 x: %lf, z: %lf \n", nextPos.x(), nextPos.z());				
 				m_time = goToObj(nextPos, m_vel*4, m_range, evt.time());
@@ -382,7 +382,7 @@ double MyController::onAction(ActionEvent &evt)
 			if(evt.time() > m_time && m_executed == false) {
 				m_my->setWheelVelocity(0.0, 0.0);
 				printf("make sleep\n");
-				sleep(1);	//1秒
+				usleep(50000);	//0.05second
 
 				m_time = rotateTowardObj(m_lookingPos, m_rotateVel, evt.time());
 				m_executed = false;
@@ -396,7 +396,7 @@ double MyController::onAction(ActionEvent &evt)
 			if(evt.time() > m_time && m_executed == false) {
 				m_my->setWheelVelocity(0.0, 0.0);
 				printf("make sleep\n");
-				sleep(1);	//1秒
+				usleep(50000);	//0.05second
 				
 				sendSceneInfo();
 				printf("sent data to SIGViewer \n");				
@@ -418,7 +418,7 @@ double MyController::onAction(ActionEvent &evt)
 			if(evt.time() > m_time && m_executed == false) {
 				m_my->setWheelVelocity(0.0, 0.0);
 				printf("make sleep\n");
-				sleep(1);	//1秒
+				usleep(50000);	//0.05second
 
 				m_executed = false;
 			}
@@ -790,7 +790,7 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 		}
 
 		printf("make sleep\n");
-		sleep(1);	//1秒
+		usleep(50000);	//0.05second
 
 		return now + time;
 	}
@@ -827,7 +827,7 @@ double MyController::goToObj(Vector3d nextPos, double velocity, double range, do
 	// 移動開始
 	m_my->setWheelVelocity(velocity, velocity);
 	printf("make sleep\n");
-	sleep(1);	//1秒
+	usleep(50000);	//0.05second
 	printf("setVelocity: %lf %lf \n", velocity, velocity);
 
 	// 到着時間取得
