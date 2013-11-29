@@ -1,6 +1,8 @@
 #include "ControllerEvent.h"  
 #include "Controller.h"  
 #include "Logger.h"  
+#include <time.h>
+#include <sys/time.h>
 #include <algorithm>
 #include <string> 
 #include <math.h> 
@@ -191,8 +193,7 @@ void MyController::setRobotPosition(double x, double z) {
 
 char* MyController::sendSceneInfo(std::string header, int camID) {
 	
-	m_my->setWheelVelocity(0.0, 0.0);				
-
+	m_my->setWheelVelocity(0.0, 0.0);		
 	Vector3d myPos;
 	m_my->getPosition(myPos);
 	double x = myPos.x();
@@ -231,9 +232,12 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 	sprintf(replyMsg, "%s %6.1lf %6.1lf %6.1lf %6.1lf %6.1lf %6.1lf %6.1lf %6.1lf %6.1lf", 
 						header.c_str(), x, z, theta, campos.x(), campos.y(), campos.z(), cdir.x(), cdir.y(), cdir.z());
 	printf("%s \n", replyMsg);
-	m_srv->sendMsgToSrv(replyMsg);
 
-	//m_util.AppendString2File(string(replyMsg), REPLY_MESS_FILENAME);
+	m_srv->sendMsgToSrv(replyMsg);
+	printf("make sleep\n");
+	sleep(1);	//1秒
+
+	m_util.AppendString2File(string(replyMsg), REPLY_MESS_FILENAME);
 
 	return replyMsg;
 }
@@ -353,7 +357,10 @@ double MyController::onAction(ActionEvent &evt)
 
 		case 807: {
 			if(evt.time() > m_time && m_executed == false) {
-				m_my->setWheelVelocity(0.0, 0.0);				
+				m_my->setWheelVelocity(0.0, 0.0);
+				printf("make sleep\n");
+				sleep(1);	//1秒			
+	
 				printf("移動先 x: %lf, z: %lf \n", nextPos.x(), nextPos.z());				
 				m_time = goToObj(nextPos, m_vel*4, m_range, evt.time());
 				
@@ -374,6 +381,9 @@ double MyController::onAction(ActionEvent &evt)
 			// 送られた座標に移動中
 			if(evt.time() > m_time && m_executed == false) {
 				m_my->setWheelVelocity(0.0, 0.0);
+				printf("make sleep\n");
+				sleep(1);	//1秒
+
 				m_time = rotateTowardObj(m_lookingPos, m_rotateVel, evt.time());
 				m_executed = false;
 				m_state = 815;
@@ -384,7 +394,10 @@ double MyController::onAction(ActionEvent &evt)
 		case 815: {
 			// 送られた座標に移動中
 			if(evt.time() > m_time && m_executed == false) {
-				m_my->setWheelVelocity(0.0, 0.0);				
+				m_my->setWheelVelocity(0.0, 0.0);
+				printf("make sleep\n");
+				sleep(1);	//1秒
+				
 				sendSceneInfo();
 				printf("sent data to SIGViewer \n");				
 				m_executed = true;
@@ -404,6 +417,9 @@ double MyController::onAction(ActionEvent &evt)
 			// ロボットが回転中
 			if(evt.time() > m_time && m_executed == false) {
 				m_my->setWheelVelocity(0.0, 0.0);
+				printf("make sleep\n");
+				sleep(1);	//1秒
+
 				m_executed = false;
 			}
 			break;
@@ -432,9 +448,9 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	printf("all_msg: %s \n", all_msg);
 
 	// debug
-	//char *all_msg_bak;
-	//sprintf(all_msg_bak, "%s", all_msg);
-	//printf("___all_msg_bak: %s\n", all_msg_bak);
+	char all_msg_bak[256];
+	sprintf(all_msg_bak, "%s", all_msg);
+	printf("___all_msg_bak: %s\n", all_msg_bak);
 
 	char *delim = (char *)(" ");
 	char *ctx;
@@ -460,8 +476,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 		if(strcmp(header, "RandomRouteStart") == 0) {
 			// debug
-			//printf("append msg 2 file\n");
-			//m_util.AppendString2File(string(all_msg_bak), RECV_MESS_FILENAME);
+			printf("append msg 2 file\n");
+			m_util.AppendString2File(string(all_msg_bak), RECV_MESS_FILENAME);
 
 			m_state = 800;
 			m_executed = false;
@@ -497,7 +513,7 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 			double wheelVel = atof(strtok_r(NULL, delim, &ctx));
 			printf("GoForwardVelocity coef: %lf \n", wheelVel);
 			wheelVel *= m_vel;
-			m_my->setWheelVelocity(wheelVel * 10., wheelVel * 10.);				
+			m_my->setWheelVelocity(wheelVel * 10., wheelVel * 10.);			
 			//sendSceneInfo();				
 			return;
 		}
@@ -773,6 +789,9 @@ double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 			m_my->setWheelVelocity(-velocity, velocity);
 		}
 
+		printf("make sleep\n");
+		sleep(1);	//1秒
+
 		return now + time;
 	}
 }
@@ -807,6 +826,8 @@ double MyController::goToObj(Vector3d nextPos, double velocity, double range, do
 
 	// 移動開始
 	m_my->setWheelVelocity(velocity, velocity);
+	printf("make sleep\n");
+	sleep(1);	//1秒
 	printf("setVelocity: %lf %lf \n", velocity, velocity);
 
 	// 到着時間取得
