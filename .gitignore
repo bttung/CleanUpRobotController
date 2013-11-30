@@ -1,1 +1,5 @@
 /CleanUp_v1_0707
+/GetLayoutInfo/*.so
+/GetLayoutInfo/*.log
+*.log
+*.so
