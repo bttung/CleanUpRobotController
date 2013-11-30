@@ -217,7 +217,7 @@ char* MyController::sendSceneInfo(std::string header, int camID) {
 		m_my->getCamPos(cpos, camID);
 
 		// カメラの位置(絶対座標系, ロボットの回転はないものとする)
-    printf("linkpos: %lf %lf %lf \n", lpos.x(), lpos.y(), lpos.z());
+		printf("linkpos: %lf %lf %lf \n", lpos.x(), lpos.y(), lpos.z());
 		printf("camerapos: %lf %lf %lf \n", cpos.x(), cpos.y(), cpos.z());
 		Vector3d campos(lpos.x() + cpos.z() * sin(DEG2RAD(theta)), 
 										lpos.y() + cpos.y(), 
