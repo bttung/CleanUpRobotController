@@ -208,8 +208,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		} else {
-			m_srv->sendMsgToSrv(FIN_OBSTACLE_POS_MSG);
-			printf("%s \n", FIN_OBSTACLE_POS_MSG);
+			m_srv->sendMsgToSrv(FIN_ASK_OBSTACLE_POS_MSG);
+			printf("%s \n", FIN_ASK_OBSTACLE_POS_MSG);
 		}
 		return;
 	}
