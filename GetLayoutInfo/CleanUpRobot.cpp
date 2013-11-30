@@ -2,8 +2,9 @@
 #include "Controller.h"
 #include "Logger.h"  
 #include <algorithm>
-#include "Parameter.h"
+#include "PositionManager.h"
 #include "Entity.h"
+#include "Parameter.h"
 
 #define PI 3.1415926535
 
@@ -194,8 +195,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 			printf("%s \n", replyMsg);
 			m_srv->sendMsgToSrv(replyMsg);
 		} else {
-			m_srv->sendMsgToSrv(FIN_OBJECT_POS_MSG);
-			printf("%s \n", FIN_OBJECT_POS_MSG);
+			m_srv->sendMsgToSrv(FIN_ASK_OBJECT_POS_MSG);
+			printf("%s \n", FIN_ASK_OBJECT_POS_MSG);
 		}
 		return;
 	}
