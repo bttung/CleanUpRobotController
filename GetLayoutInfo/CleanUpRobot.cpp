@@ -3,11 +3,12 @@
 #include "Logger.h"  
 #include <algorithm>
 #include "Parameter.h"
+#include "Entity.h"
 
 #define PI 3.1415926535
 
 //角度からラジアンに変換します
-#define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )   
+#define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )
 
 class MyController : public Controller {  
 public:  
@@ -128,7 +129,7 @@ void MyController::onInit(InitEvent &evt)
   m_trashes.push_back("can_0");
   m_trashes.push_back("can_1"); 
   m_trashes.push_back("petbottle_0");
-
+    
 	m_obstacles.push_back("table_0");
 	m_obstacles.push_back("trashbox_0");
 	m_obstacles.push_back("trashbox_1");
@@ -162,7 +163,7 @@ double MyController::onAction(ActionEvent &evt)
 				}
 			} else if(m_srv != NULL && m_executed == false) {  
 				m_time = evt.time();
-				m_srv->sendMsgToSrv(START_MSG);
+				m_srv->sendMsgToSrv(START_ASK_POS_MSG);
 				m_state = 5;
 			}
 			break;
@@ -213,19 +214,68 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 	}
 
 	if (strcmp(header, ASK_ROBOT_POS_MSG) == 0) {
-		if (!m_executed) {
-	 		printf("Received %s \n", ASK_ROBOT_POS_MSG);
-			if (GetEntityInfo(pos, m_robots)) {
-				sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_ROBOT_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), 0.0, 0.0, 0.0);
-				printf("%s \n", replyMsg);
-				m_srv->sendMsgToSrv(replyMsg);
-				m_executed = true;		
-			}
+ 		printf("Received %s \n", ASK_ROBOT_POS_MSG);
+		if (GetEntityInfo(pos, m_robots)) {
+			sprintf(replyMsg, "%s %d %s %6.1lf %6.1lf %6.1lf", ANS_ROBOT_POS_MSG, m_numberOfSendedEntityFromCandidateList - 1, m_entiyName.c_str(), 0.0, 0.0, 0.0);
+			printf("%s \n", replyMsg);
+			m_srv->sendMsgToSrv(replyMsg);
 		}
 		return;
 	}
 
+	
 
+
+	if (strcmp(header, START_SET_POS_MSG) == 0) {			
+		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);	
+		return;
+	}
+
+	if (strcmp(header, SET_ENTITY_POS_MSG) == 0) {
+		// メッセージを解析して、エンティティの位置をセットする
+		Entity entity;
+		entity.GetEntityInfo(ctx);
+
+		// 移動させる
+		PositionManager positionManager;
+		positionManager.UpdatePosition(entity);
+
+		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
+		return;
+	}
+
+	if (strcmp(header, FIN_SET_POS_MSG) == 0) {			
+		m_srv->sendMsgToSrv(FIN_SET_POS_MSG);
+		return;
+	}
+
+
+	//if (strcmp(header, START_SET_POSITION_MSG) == 0		||
+	//		strcmp(header, FIN_SET_OBJECT_POS_MSG) == 0	||
+	//		strcmp(header, FIN_SET_OBSTACLE_POS_MSG) == 0) {			
+	//		m_srv->sendMsgToSrv(header);	
+	//	return;
+	//}
+
+	//if (strcmp(header, SET_OBJECT_POS_MSG) == 0) {
+	//	//REQUEST_OBJECT_POS_MSG
+	//	return;
+	//}
+
+	//if (strcmp(header, SET_OBSTACLE_POS_MSG) == 0) {
+	//	//REQUEST_OBSTACLE_POS_MSG
+	//	return;
+	//}
+
+	//if (strcmp(header, SET_ROBOT_POS_MSG) == 0) {
+	//	//REQUEST_ROBOT_POS_MSG
+	//	return;
+	//}
+
+	//if (strcmp(header, FIN_SET_ROBOT_POS_MSG) == 0) {
+	//	m_srv->sendMsgToSrv(START_SET_POSITION_MSG);
+	//	return;
+	//}
 
 	return;
 
