@@ -351,7 +351,7 @@ bool MyController::GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entit
 }
 
 
-bool MyController::UpdatePosition(Entity entity) {
+void MyController::UpdatePosition(Entity entity) {
 	printf("ccc \n");	
 	SimObj *simObj = getObj(entity.name);
 	printf("ddd\n");
