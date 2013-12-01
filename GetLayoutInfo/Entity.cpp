@@ -5,10 +5,12 @@ void Entity::ToConsole() {
 	return;
 }
 
-void Entity::GetEntityInfo(std::string str) {
+void Entity::GetEntityInfo(char* msg) {
 	char entityName[256];
-	sscanf(str.c_str(), "%d	%s	%lf	%lf	%lf", &id, entityName, &x, &y, &z);
-	name = string(entityName);	
+	cout << "msg: " << msg << endl;
+	sscanf(msg, "%d %s %lf %lf %lf", &id, entityName, &x, &y, &z);
+	name = string(entityName);
+	cout << "name: " << name << endl;
 	return;
 }
 

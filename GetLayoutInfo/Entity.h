@@ -8,7 +8,7 @@ class Entity
 {
 public:
 	int id;
-	std::string name;
+	string name;
 	double x;
 	double y;
 	double z;
@@ -18,6 +18,6 @@ public:
 	~Entity() {};
 public:
 	void ToConsole();
-	void GetEntityInfo(string str);
+	void GetEntityInfo(char* msg);
 	void GetEntityInfo(char* msg);
 };
