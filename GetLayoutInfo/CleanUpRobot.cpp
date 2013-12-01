@@ -2,14 +2,44 @@
 #include "Controller.h"
 #include "Logger.h"  
 #include <algorithm>
-#include "PositionManager.h"
-#include "Entity.h"
+//#include "PositionManager.h"
+//#include "Entity.h"
 #include "Parameter.h"
 
 #define PI 3.1415926535
 
 //角度からラジアンに変換します
 #define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )
+
+
+class Entity
+{
+public:
+	int id;
+	string name;
+	double x;
+	double y;
+	double z;
+
+public:
+	Entity();
+	~Entity();
+public:
+	void PrintToConsole();
+	//void GetEntityInfo(char* msg);
+};
+
+void Entity::PrintToConsole() {
+	printf("entity: %d	%s	%lf	%lf	%lf	\n", id, name.c_str(), x, y, z);
+	return;
+}
+
+
+
+
+
+
+
 
 class MyController : public Controller {  
 public:  
