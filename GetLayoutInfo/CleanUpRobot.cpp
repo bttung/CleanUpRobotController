@@ -25,9 +25,9 @@ public:
 	* @return  ゴミの認識に成功した場合はtrue
 	*/
 	bool recognizeTrash(Vector3d &pos, std::string &name);
-
 	void GetRobotPositionInfo();
 	bool GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entities);
+	void UpdatePostion(Entity entity);
 
 	/* @brief  位置を指定しその方向に回転を開始し、回転終了時間を返します
 	* @param  pos 回転したい方向の位置
@@ -248,9 +248,8 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 		printf("333\n");
 		// 移動させる
-		PositionManager positionManager;
 		printf("444 \n");	
-		positionManager.UpdatePosition(entity);
+		UpdatePosition(entity);
 		printf("555 \n");
 		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
 		printf("666\n");		
@@ -350,6 +349,20 @@ bool MyController::GetEntityInfo(Vector3d &pos, std::vector<std::string> v_entit
 
 	return true;
 }
+
+
+bool MyController::UpdatePosition(Entity entity) {
+	printf("ccc \n");	
+	SimObj *simObj = getObj(entity.name);
+	printf("ddd\n");
+	Vector3d pos(entity.x, entity.y, entity.z);
+	printf("eee\n");
+	simObj->setPosition(pos);
+	printf("ggg\n");	
+	return;
+}
+
+
 
 double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
 {
