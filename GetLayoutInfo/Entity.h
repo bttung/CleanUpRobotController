@@ -19,5 +19,4 @@ public:
 public:
 	void ToConsole();
 	void GetEntityInfo(char* msg);
-	void GetEntityInfo(char* msg);
 };

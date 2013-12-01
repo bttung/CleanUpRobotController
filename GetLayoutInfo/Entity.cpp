@@ -13,9 +13,3 @@ void Entity::GetEntityInfo(char* msg) {
 	cout << "name: " << name << endl;
 	return;
 }
-
-void Entity::GetEntityInfo(char* msg) {
-	string str = msg;
-	GetEntityInfo(str);
-	return;
-}
