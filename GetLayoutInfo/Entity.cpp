@@ -7,7 +7,7 @@ void Entity::ToConsole() {
 
 void Entity::GetEntityInfo(char* msg) {
 	char entityName[256];
-	cout << "msg: " << msg << endl;
+	printf("msg: %s \n", msg);
 	sscanf(msg, "%d %s %lf %lf %lf", &id, entityName, &x, &y, &z);
 	name = string(entityName);
 	cout << "name: " << name << endl;
