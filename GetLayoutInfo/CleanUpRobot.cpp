@@ -241,6 +241,7 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		printf("111 \n");
 		Entity entity;
 		printf("222 \n");
+		printf("メッセージの未解析部分 :%s \n", ctx);
 		entity.GetEntityInfo(ctx);
 		printf("333\n");
 		// 移動させる
