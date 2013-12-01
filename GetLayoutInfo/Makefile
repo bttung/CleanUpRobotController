@@ -2,7 +2,7 @@
 SIG_SRC  = $(SIGVERSE_PATH)/include/sigverse
 
 #オブジェクトファイルの指定
-OBJS     = CleanUpRobot.so TrashBox.so Entity.so
+OBJS     = CleanUpRobot.so TrashBox.so
 
 all: $(OBJS)
 
