@@ -26,13 +26,13 @@ using namespace std;
 #define INIT_STATE 0			// 初期状態
 #define ROT_TO_OBJ 1			// サービスからの認識結果を待っている状態
 #define GO_TO_OBJ 21			// ゴミがある方向に回転している状態
-#define TURN_JOINT_UP 2		// 関節を曲げてゴミを取りに行っている状態
+#define TURN_JOINT_UP 2			// 関節を曲げてゴミを取りに行っている状態
 #define GRAB_OBJ 3				// ゴミを持ってゴミ箱の方向に回転している状態
-#define GRAB_FAIL 31		  // ゴミを持ってゴミ箱に向かっている状態
+#define GRAB_FAIL 31			// ゴミを持ってゴミ箱に向かっている状態
 #define GRAB_SUCC 4				// ゴミを捨てて関節角度を元に戻している状態
-#define GO_TO_TRASH_BOX 5 // 元に場所に戻る方向に回転している状態
-#define TURN_JOINT_DOWN 6 // 元の場所に向かっている状態
-#define GO_TO_LAST_POS 7	// 元の向きに回転している状態
+#define GO_TO_TRASH_BOX 5		// 元に場所に戻る方向に回転している状態
+#define TURN_JOINT_DOWN 6		// 元の場所に向かっている状態
+#define GO_TO_LAST_POS 7		// 元の向きに回転している状態
 #define STOP_ROBOT 8	
 
 //角度からラジアンに変換します
@@ -508,6 +508,22 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 			m_executed = false;
 			return;
 		} 
+
+		if(strcmp(header, "SetRobotPosition") == 0) {
+			double x = atof(strtok_r(NULL, delim, &ctx));		
+			double z = atof(strtok_r(NULL, delim, &ctx));
+			//double angle = atof(strtok_r(NULL, delim, &ctx));
+
+			setRobotPosition(x, z);
+			//setRobotHeadingAngle(angle);
+			
+			//printf("SetRobotPostion x: %lf, z: %lf, angle: %lf\n", x, z, angle);
+			printf("SetRobotPostion x: %lf, z: %lf\n", x, z);
+
+			char* replyMsg = sendSceneInfo();
+			m_executed = true;
+			return;	
+		}
 
 		if(strcmp(header, "GoForwardVelocity") == 0) {
 			double wheelVel = atof(strtok_r(NULL, delim, &ctx));
