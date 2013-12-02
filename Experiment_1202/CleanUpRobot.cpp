@@ -519,7 +519,10 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 			double disX	 = lookX - x;
 			double disZ  = lookZ - z;
 			
-			double angle = RAD2DEG(atan(disX / disZ));
+			double angle = RAD2DEG(atan(disZ / disX));
+			//if (disX < 0) angle += 180.0;
+			if (angle < 0) angle += 180.0; 
+
 			setRobotPosition(x, z);
 			setRobotHeadingAngle(angle);
 			
