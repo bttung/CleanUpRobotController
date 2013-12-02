@@ -37,6 +37,7 @@ using namespace std;
 
 //角度からラジアンに変換します
 #define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )   
+#define RAD2DEG(RAD) ( (RAD) * 180.0 / (PI) )
 
 
 class Utility {
@@ -510,15 +511,20 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		} 
 
 		if(strcmp(header, "SetRobotPosition") == 0) {
+			printf("TELEPORT: %s\n", ctx);
 			double x = atof(strtok_r(NULL, delim, &ctx));		
 			double z = atof(strtok_r(NULL, delim, &ctx));
-			//double angle = atof(strtok_r(NULL, delim, &ctx));
-
-			setRobotPosition(x, z);
-			//setRobotHeadingAngle(angle);
+			double lookX = atof(strtok_r(NULL, delim, &ctx));
+			double lookZ = atof(strtok_r(NULL, delim, &ctx));
+			double disX	 = lookX - x;
+			double disZ  = lookZ - z;
 			
-			//printf("SetRobotPostion x: %lf, z: %lf, angle: %lf\n", x, z, angle);
-			printf("SetRobotPostion x: %lf, z: %lf\n", x, z);
+			double angle = RAD2DEG(atan(disX / disZ));
+			setRobotPosition(x, z);
+			setRobotHeadingAngle(angle);
+			
+			printf("SetRobotPostion x: %lf, z: %lf, angle: %lf\n", x, z, angle);
+			//printf("SetRobotPostion x: %lf, z: %lf\n", x, z);
 
 			char* replyMsg = sendSceneInfo();
 			m_executed = true;
