@@ -33,4 +33,7 @@
 #define REQ_ENTITY_POS_MSG			"RequestEntityPosition"
 #define FIN_SET_POS_MSG				"FinishSetPosition"
 
+#define PI 3.1415926535
+// DEG to RADIAN
+#define DEG2RAD(DEG) ( (PI) * (DEG) / 180.0 )
 

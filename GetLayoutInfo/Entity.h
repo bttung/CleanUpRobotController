@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <stdio.h>
+#include <iostream>
 
 using namespace std;
 
@@ -8,16 +10,15 @@ class Entity
 {
 public:
 	int id;
-	std::string name;
+	string name;
 	double x;
 	double y;
 	double z;
 
 public:
-	Entity() {};
-	~Entity() {};
+	Entity();
+	~Entity();
 public:
-	void ToConsole();
-	void GetEntityInfo(string str);
-	void GetEntityInfo(char* msg);
+	void PrintToConsole();
+	//void GetEntityInfo(char* msg);
 };
