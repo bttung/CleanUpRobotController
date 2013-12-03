@@ -9,4 +9,4 @@ class PositionManager
 {
 public:
 	void UpdatePosition(Entity entity);
-}
+};
