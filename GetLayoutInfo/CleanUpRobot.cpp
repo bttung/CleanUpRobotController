@@ -3,8 +3,6 @@
 #include "Logger.h"  
 #include <string>
 #include <algorithm>
-//#include "PositionManager.h"
-//#include "Entity.h"
 #include "Parameter.h"
 
 using namespace std;
@@ -18,9 +16,6 @@ public:
 	double y;
 	double z;
 
-//public:
-//	Entity();
-//	~Entity();
 public:
 	void PrintToConsole();
 	void GetEntityInfo(char* msg);
