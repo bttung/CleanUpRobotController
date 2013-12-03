@@ -254,7 +254,6 @@ double MyController::onAction(ActionEvent &evt)
 		case 0: {
 			if(m_srv == NULL){
 
-
 				// ゴミ認識サービスが利用可能か調べる
 				if(checkService(LAYOUT_MANAGE_SERVICE_NAME)){
 					// ゴミ認識サービスに接続
@@ -334,30 +333,18 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 		return;
 	}
 
-	printf("aaa\n");
-	printf("%s _____\n", header);
-	printf("%s \n", SET_ENTITY_POS_MSG);
 	if (strcmp(header, SET_ENTITY_POS_MSG) == 0) {
 		// メッセージを解析して、エンティティの位置をセットする
-		printf("111 \n");
-		
-		printf("222 \n");
 		printf("メッセージの未解析部分 :%s \n", ctx);
 		
 		Entity entity ;
-		printf("333 \n");
-		printf("ctx: %s \n", ctx);
 					
 		entity.PrintToConsole();
 		entity.GetEntityInfo(ctx);
 
-		printf("333\n");
 		// 移動させる
-		printf("444 \n");	
 		UpdatePosition(entity);
-		printf("555 \n");
 		m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
-		printf("666\n");		
 		return;
 	}
 
