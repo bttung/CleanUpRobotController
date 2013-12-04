@@ -11,6 +11,7 @@
 
 using namespace std;
 
+#define TELEPORT	true
 #define REPLY_MESS_FILENAME "reply_msg.txt"
 #define RECV_MESS_FILENAME	"recv_msg.txt"
 #define LOG_FILENAME		"log.txt"
@@ -362,17 +363,23 @@ double MyController::onAction(ActionEvent &evt)
 				printf("make sleep\n");
 				usleep(100000);	//0.1second			
 	
-				printf("移動先 x: %lf, z: %lf \n", nextPos.x(), nextPos.z());				
-				m_time = goToObj(nextPos, m_vel*4, m_range, evt.time());
+				printf("移動先 x: %lf, z: %lf \n", nextPos.x(), nextPos.z());
 				
-				if (m_lookObjFlg == 1.0) {
-					printf("looking to Obj \n");				
-					m_state = 810;
-				} else {
-					printf("go to next node \n");				
+				if (!TELEPORT) {
+					m_time = goToObj(nextPos, m_vel*4, m_range, evt.time());
+				
+					if (m_lookObjFlg == 1.0) {
+						printf("looking to Obj \n");				
+						m_state = 810;
+					} else {
+						printf("go to next node \n");				
+						m_state = 815;
+					}
+				} else {	// 瞬間移動
+					
+					setRobotPosition(nextPos.x(), nextPos.z());
 					m_state = 815;
 				}
-
 				m_executed = false;
 			}
 			break;
@@ -504,34 +511,20 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 			m_lookObjFlg = atof(strtok_r(NULL, delim, &ctx));
 			printf("m_lookObjFlg: %lf \n", m_lookObjFlg);
-
-			m_state = 805;
+	
+			if (TELEPORT) {
+				setRobotPosition(x, z);
+				double disX = lookingX - x;
+				double disZ = lookingZ - z;
+				double angle = atan2(disX, disZ);
+				angle = RAD2DEG(angle);
+				setRobotHeadingAngle(angle);
+				sendSceneInfo();					
+			} else {
+				m_state = 805;
+			}
 			m_executed = false;
 			return;
-		} 
-
-		if(strcmp(header, "SetRobotPosition") == 0) {
-			printf("TELEPORT: %s\n", ctx);
-			double x = atof(strtok_r(NULL, delim, &ctx));		
-			double z = atof(strtok_r(NULL, delim, &ctx));
-			double lookX = atof(strtok_r(NULL, delim, &ctx));
-			double lookZ = atof(strtok_r(NULL, delim, &ctx));
-			double disX	 = lookX - x;
-			double disZ  = lookZ - z;
-			
-			double angle = RAD2DEG(atan(disZ / disX));
-			//if (disX < 0) angle += 180.0;
-			if (angle < 0) angle += 180.0; 
-
-			setRobotPosition(x, z);
-			setRobotHeadingAngle(angle);
-			
-			printf("SetRobotPostion x: %lf, z: %lf, angle: %lf\n", x, z, angle);
-			//printf("SetRobotPostion x: %lf, z: %lf\n", x, z);
-
-			char* replyMsg = sendSceneInfo();
-			m_executed = true;
-			return;	
 		}
 
 		if(strcmp(header, "GoForwardVelocity") == 0) {
@@ -643,87 +636,6 @@ double MyController::calcHeadingAngle()
 
 	return theta * 180.0 / PI;
 }
-
- 
-/*double MyController::rotateTowardObj(Vector3d pos, double velocity, double now)
-{  	
-	// 自分の位置の取得
-  	Vector3d myPos;
-  	m_my->getPosition(myPos);
-	printf("ロボットの現在位置: x: %lf, z %lf \n", myPos.x(), myPos.z());
-
-  	// 自分の位置からターゲットを結ぶベクトル
-  	Vector3d tmpPos = pos;  
-	tmpPos -= myPos;
-
-	// y方向は考えない
-	tmpPos.y(0);
-
-	// 自分の回転を得る
-  	Rotation myRot;
-  	m_my->getRotation(myRot);
-      
-	// y軸の回転角度を得る(x,z方向の回転は無いと仮定)
-	double qw = myRot.qw();
-	double qy = myRot.qy();
-	
-	double theta = 2 * acos(fabs(qw));
-	
-	if (qw * qy < 0) {
-		theta = -1 * theta;
-	}
-
-	printf("ロボットが向いている角度 current theta: %lf(deg) \n",  theta * 180 / PI);
-
-	//// 近すぎるなら，回転なし
-	//double dis = tmpPos.x() * tmpPos.x() + tmpPos.z() * tmpPos.z();
-	//if (dis < 1.0) {
-	//	return 0.0;
-	//}	
-  
-  	// z方向からの角度 
-	double rate = tmpPos.x() / tmpPos.z();
-	double targetAngle = atan(rate);
-
-	if (tmpPos.z() < 0) {
-		targetAngle += PI;
-	}
-	printf("回転する角度 targetAngle: %lf(deg) 結ぶベクトル tmpPos.x: %lf, tmpPos.z: %lf, rate: %lf \n", targetAngle*180.0/PI, tmpPos.x(), tmpPos.z(), rate);
-
-	targetAngle -= theta;
-	
-	if (targetAngle > PI) {
-		targetAngle = targetAngle - 2 * PI;
-	}
-	
-	printf("targetAngle: %lf(deg) currentAngle: %lf(deg) \n", targetAngle*180.0/PI, theta * 180.0 / PI);	
-
-	if (targetAngle == 0.0) {
-		printf("donot need to rotate \n");
-		return 0.0;
-	} else {
-		// 回転すべき円周距離
-		double distance = m_distance * PI * fabs(targetAngle) / (2 * PI);
-		printf("distance: %lf \n", distance);	
-
-		// 車輪の半径から移動速度を得る
-		double vel = m_radius * velocity;
-		printf("radius: %lf, velocity: %lf, vel: %lf \n", m_radius, velocity, vel);
-
-		// 回転時間(u秒)
-		double time = distance / vel;
-		printf("rotateTime: %lf = dis: %lf / vel: %lf\n", time, distance, vel);
-
-		// 車輪回転開始
-		if (targetAngle > 0.0) {
-			m_my->setWheelVelocity(-velocity, velocity);
-		} else {
-			m_my->setWheelVelocity(velocity, -velocity);
-		}
-
-		return now + time;
-	}
-}*/
 
 
 
