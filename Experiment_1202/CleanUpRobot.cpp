@@ -8,6 +8,7 @@
 #include <math.h> 
 #include <map>
 #include <string>
+#include "Parameter.h"
 
 using namespace std;
 
@@ -53,6 +54,59 @@ void Utility::AppendString2File(string msg, string _filename) {
 	FILE *fw = fopen(filename, "a");
 	fprintf(fw, "%s\n", msg.c_str());
 	fclose(fw);
+	return;
+}
+
+class Entity
+{
+public:
+	string type;
+	int id;
+	string name;
+	double x;
+	double y;
+	double z;
+
+public:
+	Entity() {};
+	Entity(string type, int id, string name);
+	~Entity() {};
+public:
+	string ToString();
+	void PrintToConsole();
+	void GetEntityInfo(char* msg);
+	void SetPosition(double _x, double _y, double _z);
+};
+
+Entity::Entity(string _type, int _id, string _name) {
+	type = _type;
+	id	 = _id;
+	name = _name;
+}
+
+string Entity::ToString() {
+	char content[256];
+	sprintf(content, "%s %d %s %lf %lf %lf \n", type.c_str(), id, name.c_str(), x, y, z);
+	printf("entity ToString: %s \n", content);	
+	return string(content);
+}
+
+void Entity::PrintToConsole() {
+	printf("entity: %s %d %s %lf %lf %lf \n", type.c_str(), id, name.c_str(), x, y, z);
+	return;
+}
+
+void Entity::GetEntityInfo(char* str) {
+	char entityName[256];
+	char entityType[256];
+	sscanf(str, "%s %d %s %lf %lf %lf", entityType, &id, entityName, &x, &y, &z);
+	name = string(entityName);
+	type = string(entityType);
+	return;
+}
+
+void Entity::SetPosition(double _x, double _y, double _z) {
+	x = _x; y = _y; z = _z;
 	return;
 }
 
@@ -286,24 +340,8 @@ void MyController::onInit(InitEvent &evt)
   
 
 
-double MyController::onAction(ActionEvent &evt)
+double MyController::onAction(ActionEvent &evt) 
 {
-/*	if(!checkService("RecogTrash")){
-		m_srv == NULL;
-		m_state = 0;
-		return UPDATE_INTERVAL;
-	}
-	
-	if(m_srv == NULL){
-		// ゴミ認識サービスが利用可能か調べる
-		if(checkService("RecogTrash")){
-			// ゴミ認識サービスに接続
-			m_srv = connectToService("RecogTrash");
-			return UPDATE_INTERVAL;
-		}
-	}*/
-
-
 	//if(evt.time() < m_time) printf("state: %d \n", m_state);
 	switch(m_state) {
 		// 初期状態
@@ -440,7 +478,6 @@ double MyController::onAction(ActionEvent &evt)
 	}
 
 	return UPDATE_INTERVAL;
-
 }  
 
 
@@ -480,6 +517,30 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 
 	// 送信者がゴミ認識サービスの場合
 	if(sender == "RecogTrash") {
+		if (strcmp(header, START_SET_POS_MSG) == 0) {			
+			m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);	
+			return;
+		}
+
+		if (strcmp(header, SET_ENTITY_POS_MSG) == 0) {
+			// メッセージを解析して、エンティティの位置をセットする
+			printf("メッセージの未解析部分 :%s \n", ctx);
+			
+			Entity entity ;						
+			entity.PrintToConsole();
+			entity.GetEntityInfo(ctx);
+
+			// 移動させる
+			UpdatePosition(entity);
+			m_srv->sendMsgToSrv(REQ_ENTITY_POS_MSG);
+			return;
+		}
+
+		if (strcmp(header, FIN_SET_POS_MSG) == 0) {			
+			sendSceneInfo();
+			return;
+		}
+
 		double x = 0, y = 0, z = 0; // range = 0;
 
 		if(strcmp(header, "RandomRouteStart") == 0) {
@@ -609,14 +670,18 @@ void MyController::onRecvMsg(RecvMsgEvent &evt)
 			return;
 		}
 	}
-
 }  
 
-
-
-void MyController::onCollision(CollisionEvent &evt) 
-{
+void MyController::UpdatePosition(Entity entity) {
+	SimObj *simObj = getObj(entity.name.c_str());
+	Vector3d pos(entity.x, entity.y, entity.z);
+	printf("name: %s, pos: %lf %lf %lf \n", entity.name.c_str(), pos.x(), pos.y(), pos.z());
+	simObj->setPosition(pos);
+	return;
 }
+
+
+void MyController::onCollision(CollisionEvent &evt) { }
 
 
 double MyController::calcHeadingAngle()
