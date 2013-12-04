@@ -130,7 +130,6 @@ public:
 	* @return 回転終了時間
 	*/
 	double rotateTowardObj(Vector3d pos, double vel, double now); 
-
 	double calcHeadingAngle();
 
 	/* @brief  位置を指定しその方向に進みます
@@ -141,7 +140,8 @@ public:
 	* @return 到着時間
 	*/
 	double goToObj(Vector3d pos, double vel, double range, double now);
-	
+	void UpdatePosition(Entity entity);
+
 private:
 	RobotObj *m_my;
 
