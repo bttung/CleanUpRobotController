@@ -1,0 +1,512 @@
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  125.5  124.3   95.4  135.5  100.0  123.4    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute  169.6  165.1    0.0  180.0  129.0    1.0 
+___all_msg_bak: RandomRoute  169.6  165.1    0.0  180.0  129.0    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute  169.6  165.1  163.9  172.4  100.0  155.5    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   25.0  145.0    0.0   14.7  116.8    1.0 
+___all_msg_bak: RandomRoute   25.0  145.0    0.0   14.7  116.8    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   25.0  145.0    0.0   14.7  116.8    1.0 
+___all_msg_bak: RandomRoute   25.0  145.0    0.0   14.7  116.8    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   25.0  145.0 -159.9   21.6  100.0  135.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   55.0  155.0    0.0   44.7  126.8    1.0 
+___all_msg_bak: RandomRoute   55.0  155.0    0.0   44.7  126.8    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   55.0  155.0    0.0   44.7  126.8    1.0 
+___all_msg_bak: RandomRoute   55.0  155.0    0.0   44.7  126.8    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -159.9   51.6  100.0  145.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   55.0  155.0    0.0   35.7  132.0    1.0 
+___all_msg_bak: RandomRoute   55.0  155.0    0.0   35.7  132.0    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   55.0  155.0    0.0   35.7  132.0    1.0 
+___all_msg_bak: RandomRoute   55.0  155.0    0.0   35.7  132.0    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   55.0  155.0 -140.0   48.6  100.0  147.3    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RESET 
+___all_msg_bak: RESET
+header: RESET
+Received RESET 
+camera Dir converted 
+Reseted RobotPosition 
+Start    0.0  -50.0    0.0    0.0  100.0  -40.0    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RESET 
+___all_msg_bak: RESET
+header: RESET
+Received RESET 
+camera Dir converted 
+Reseted RobotPosition 
+Start    0.0  -50.0    0.0    0.0  100.0  -40.0    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute    0.0  -50.0    0.0    0.0  100.0  -40.0    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   35.0 -125.0    0.0   63.2 -114.7    1.0 
+___all_msg_bak: RandomRoute   35.0 -125.0    0.0   63.2 -114.7    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RESET 
+___all_msg_bak: RESET
+header: RESET
+Received RESET 
+camera Dir converted 
+Reseted RobotPosition 
+Start    0.0  -50.0    0.0    0.0  100.0  -40.0    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RESET 
+___all_msg_bak: RESET
+header: RESET
+Received RESET 
+camera Dir converted 
+Reseted RobotPosition 
+Start    0.0  -50.0    0.0    0.0  100.0  -40.0    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: StartSetPosition 
+___all_msg_bak: StartSetPosition
+header: StartSetPosition
+sender: RecogTrash
+all_msg: StartSetPosition 
+___all_msg_bak: StartSetPosition
+header: StartSetPosition
+AskRandomRoute    0.0  -50.0    0.0    0.0  100.0  -40.0    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRoute   35.0 -125.0    0.0   63.2 -114.7    1.0 
+___all_msg_bak: RandomRoute   35.0 -125.0    0.0   63.2 -114.7    1.0
+header: RandomRoute
+m_lookObjFlg: 1.000000 
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+sender: RecogTrash
+all_msg: StartSetPosition 
+___all_msg_bak: StartSetPosition
+header: StartSetPosition
+sender: RecogTrash
+all_msg: StartSetPosition 
+___all_msg_bak: StartSetPosition
+header: StartSetPosition
+sender: RecogTrash
+all_msg: FinishSetPosition 
+___all_msg_bak: FinishSetPosition
+header: FinishSetPosition
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: FinishSetPosition 
+___all_msg_bak: FinishSetPosition
+header: FinishSetPosition
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+sender: RecogTrash
+all_msg: RandomRouteArrived 
+___all_msg_bak: RandomRouteArrived
+header: RandomRouteArrived
+AskRandomRoute   35.0 -125.0   69.9   44.4  100.0 -121.6    0.0   -1.0    1.0 
+make sleep
+^Cselect: Interrupted system call
+[SYS]  robot_000(0.0.0.0) disconnected
+
